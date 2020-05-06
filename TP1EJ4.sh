@@ -101,6 +101,8 @@ then
 	salir25
 fi
 
+destino=$(realpath "$4")
+
 #me muevo a la ruta donde se encuentran los archivos de Log. Y después guardo la ruta (PWD) en una variable
 #si tengo rutas relativas, esto me será util. Si la ruta es absoluta, no hay diferencia
 cd "$2"
@@ -163,7 +165,7 @@ do
         for a in $archivos
         do
             if [ $a != $comparacion ]; then #me fijo si un archivo tiene nombre distinto al archivo que se va a quedar en la carpeta
-                zip -m "$4"/$empresa $a #si se cumple la condición, lo agrego al archivo zip
+                zip -m "$destino"/$empresa $a #si se cumple la condición, lo agrego al archivo zip
             fi
         done
 
@@ -207,7 +209,7 @@ if [ $# -eq 6 ]; then
     for a in $archivos
     do
         if [ $a != $comparacion ]; then #me fijo si un archivo tiene nombre distinto al archivo que se va a quedar en la carpeta
-            zip -m "$4"/$empresa $a #si se cumple la condición, lo agrego al archivo zip
+            zip -m "$destino"/$empresa $a #si se cumple la condición, lo agrego al archivo zip
         fi
     done
 fi
