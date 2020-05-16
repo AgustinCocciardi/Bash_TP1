@@ -71,7 +71,17 @@ done < $archivo
 for i in ${array[@]}
 do
     IFS='| ' read -r -a nuevoArray <<< "$i"
+    
     if [ ${nuevoArray[0]} != 'DNI' ]; then
+
+        #echo "DNI: ${nuevoArray[0]}"
+        #echo "Materia: ${nuevoArray[1]}"
+        #echo "Parcial 1: ${nuevoArray[2]}"
+        #echo "Parcial 2: ${nuevoArray[3]}"
+        #echo "Recu Parcial: ${nuevoArray[4]}"
+        #echo "Recu Nota: ${nuevoArray[5]}"
+        #echo "Final: ${nuevoArray[6]}"
+        #sleep 1
 
         materia=${nuevoArray[1]}    #Guardo el número de la materia
 
@@ -114,20 +124,56 @@ do
         else                                    #Si llego hasta acà, el alumno no tiene nota en el final
             if [[ ! -z "${nuevoArray[4]}" ]]; then  #Pregunto si tiene nota en el recuperatorio
                 if [ ${nuevoArray[4]} -eq 1 ]; then #Si tiene nota, pregunto si es en el primero
-                    if [ ${nuevoArray[3]} -gt 6 -a ${nuevoArray[5]} -gt 6 ]; then #Si la nota de ambos es mayor a 6, no lo guardo
-                        let "a++"
-                    elif [ ${nuevoArray[3]} -lt 4 -o ${nuevoArray[5]} -lt 4 ]; then #Si la nota de uno de los dos es menor a 4, recursa
-                        Recursan[$materia]=$((${Recursan[$materia]}+1))
+                    if [[ -z "${nuevoArray[5]}" ]]; then
+                        if [[ -z "${nuevoArray[2]}" ]]; then #Si le falta nota en al menos un parcial, abandonó
+                            Abandonaron[$materia]=$((${Abandonaron[$materia]}+1))
+                        elif [[ -z "${nuevoArray[3]}" ]]; then
+                            Abandonaron[$materia]=$((${Abandonaron[$materia]}+1))
+                        else    #Si llegò hasta acá, el alumno no abandonó
+                            if [ ${nuevoArray[2]} -gt 6 -a ${nuevoArray[3]} -gt 6 ]; then #Si la nota de ambos es mayor a 6, no lo guardo
+                                let "a++"
+                            elif [ ${nuevoArray[2]} -lt 4 -a ${nuevoArray[3]} -lt 4 ]; then #Si la nota los dos es menor a 4, recursa
+                                Recursan[$materia]=$((${Recursan[$materia]}+1))
+                            elif [ ${nuevoArray[2]} -lt 4 -o ${nuevoArray[3]} -lt 4 ]; then #Si la nota de solo uno de los dos es menor a 4, recupera
+                                Recuperan[$materia]=$((${Recuperan[$materia]}+1))
+                            else                #Si llegó hasta acá, en los dos parciales sacó más de 3 pero menos de 7
+                                Final[$materia]=$((${Final[$materia]}+1))
+                            fi
+                        fi
                     else
-                        Final[$materia]=$((${Final[$materia]}+1))
+                        if [ ${nuevoArray[3]} -gt 6 -a ${nuevoArray[5]} -gt 6 ]; then #Si la nota de ambos es mayor a 6, no lo guardo
+                        let "a++"
+                        elif [ ${nuevoArray[3]} -lt 4 -o ${nuevoArray[5]} -lt 4 ]; then #Si la nota de uno de los dos es menor a 4, recursa
+                            Recursan[$materia]=$((${Recursan[$materia]}+1))
+                        else
+                            Final[$materia]=$((${Final[$materia]}+1))
+                        fi
                     fi
                 else                            #Si llega hasta acà, es porque rindió recuperatorio del segundo
-                    if [ ${nuevoArray[2]} -gt 6 -a ${nuevoArray[5]} -gt 6 ]; then #Si la nota de ambos es mayor a 6, no lo guardo
-                        let "a++"
-                    elif [ ${nuevoArray[2]} -lt 4 -o ${nuevoArray[5]} -lt 4 ]; then #Si la nota de uno de los dos es menor a 4, recursa
-                        Recursan[$materia]=$((${Recursan[$materia]}+1))
+                    if [[ -z "${nuevoArray[5]}" ]]; then
+                        if [[ -z "${nuevoArray[2]}" ]]; then #Si le falta nota en al menos un parcial, abandonó
+                            Abandonaron[$materia]=$((${Abandonaron[$materia]}+1))
+                        elif [[ -z "${nuevoArray[3]}" ]]; then
+                            Abandonaron[$materia]=$((${Abandonaron[$materia]}+1))
+                        else    #Si llegò hasta acá, el alumno no abandonó
+                            if [ ${nuevoArray[2]} -gt 6 -a ${nuevoArray[3]} -gt 6 ]; then #Si la nota de ambos es mayor a 6, no lo guardo
+                                let "a++"
+                            elif [ ${nuevoArray[2]} -lt 4 -a ${nuevoArray[3]} -lt 4 ]; then #Si la nota los dos es menor a 4, recursa
+                                Recursan[$materia]=$((${Recursan[$materia]}+1))
+                            elif [ ${nuevoArray[2]} -lt 4 -o ${nuevoArray[3]} -lt 4 ]; then #Si la nota de solo uno de los dos es menor a 4, recupera
+                                Recuperan[$materia]=$((${Recuperan[$materia]}+1))
+                            else                #Si llegó hasta acá, en los dos parciales sacó más de 3 pero menos de 7
+                                Final[$materia]=$((${Final[$materia]}+1))
+                            fi
+                        fi
                     else
-                        Final[$materia]=$((${Final[$materia]}+1))
+                        if [ ${nuevoArray[2]} -gt 6 -a ${nuevoArray[5]} -gt 6 ]; then #Si la nota de ambos es mayor a 6, no lo guardo
+                        let "a++"
+                        elif [ ${nuevoArray[2]} -lt 4 -o ${nuevoArray[5]} -lt 4 ]; then #Si la nota de uno de los dos es menor a 4, recursa
+                            Recursan[$materia]=$((${Recursan[$materia]}+1))
+                        else
+                            Final[$materia]=$((${Final[$materia]}+1))
+                        fi
                     fi
                 fi
             else                            #Si llegò hasta acá, no tienen nota ni en el final, ni en el recuperatorio
