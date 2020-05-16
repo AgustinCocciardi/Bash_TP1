@@ -216,6 +216,69 @@ do
                 fi
                 
                 IFS=': ' read -r -a tiempo <<< "$hora"
+                if [ "${tiempo[0]}" -eq "00" ];then
+                    tiempo[0]=0
+                elif [ "${tiempo[0]}" -eq "01" ];then
+                    tiempo[0]=1
+                elif [ "${tiempo[0]}" -eq "02" ];then
+                    tiempo[0]=2
+                elif [ "${tiempo[0]}" -eq "03" ];then
+                    tiempo[0]=3
+                elif [ "${tiempo[0]}" -eq "04" ];then
+                    tiempo[0]=4
+                elif [ "${tiempo[0]}" -eq "05" ];then
+                    tiempo[0]=5
+                elif [ "${tiempo[0]}" -eq "06" ];then
+                    tiempo[0]=6
+                elif [ "${tiempo[0]}" -eq "07" ];then
+                    tiempo[0]=7
+                elif [ "${tiempo[0]}" -eq "08" ];then
+                    tiempo[0]=8
+                elif [ "${tiempo[0]}" -eq "09" ];then
+                    tiempo[0]=9
+                fi
+                if [ "${tiempo[1]}" -eq "00" ];then
+                    tiempo[1]=0
+                elif [ "${tiempo[1]}" -eq "01" ];then
+                    tiempo[1]=1
+                elif [ "${tiempo[1]}" -eq "02" ];then
+                    tiempo[1]=2
+                elif [ "${tiempo[1]}" -eq "03" ];then
+                    tiempo[1]=3
+                elif [ "${tiempo[1]}" -eq "04" ];then
+                    tiempo[1]=4
+                elif [ "${tiempo[1]}" -eq "05" ];then
+                    tiempo[1]=5
+                elif [ "${tiempo[1]}" -eq "06" ];then
+                    tiempo[1]=6
+                elif [ "${tiempo[1]}" -eq "07" ];then
+                    tiempo[1]=7
+                elif [ "${tiempo[1]}" -eq "08" ];then
+                    tiempo[1]=8
+                elif [ "${tiempo[1]}" -eq "09" ];then
+                    tiempo[1]=9
+                fi
+                if [ "${tiempo[2]}" -eq "00" ];then
+                    tiempo[2]=0
+                elif [ "${tiempo[2]}" -eq "01" ];then
+                    tiempo[2]=1
+                elif [ "${tiempo[2]}" -eq "02" ];then
+                    tiempo[2]=2
+                elif [ "${tiempo[2]}" -eq "03" ];then
+                    tiempo[2]=3
+                elif [ "${tiempo[2]}" -eq "04" ];then
+                    tiempo[2]=4
+                elif [ "${tiempo[2]}" -eq "05" ];then
+                    tiempo[2]=5
+                elif [ "${tiempo[2]}" -eq "06" ];then
+                    tiempo[2]=6
+                elif [ "${tiempo[2]}" -eq "07" ];then
+                    tiempo[2]=7
+                elif [ "${tiempo[2]}" -eq "08" ];then
+                    tiempo[2]=8
+                elif [ "${tiempo[2]}" -eq "09" ];then
+                    tiempo[2]=9
+                fi
                 hour=$((${tiempo[0]}*3600))
                 minute=$((${tiempo[1]}*60))
                 second=${tiempo[2]}
@@ -303,6 +366,69 @@ do
                             nuevoDia=${nuevoArray[0]}
                             nuevaHora=${nuevoArray[1]}
                             IFS=':' read -r -a tiempo <<< "$nuevaHora"
+                            if [ "${tiempo[0]}" -eq "00" ];then
+                                tiempo[0]=0
+                            elif [ "${tiempo[0]}" -eq "01" ];then
+                                tiempo[0]=1
+                            elif [ "${tiempo[0]}" -eq "02" ];then
+                                tiempo[0]=2
+                            elif [ "${tiempo[0]}" -eq "03" ];then
+                                tiempo[0]=3
+                            elif [ "${tiempo[0]}" -eq "04" ];then
+                                tiempo[0]=4
+                            elif [ "${tiempo[0]}" -eq "05" ];then
+                                tiempo[0]=5
+                            elif [ "${tiempo[0]}" -eq "06" ];then
+                                tiempo[0]=6
+                            elif [ "${tiempo[0]}" -eq "07" ];then
+                                tiempo[0]=7
+                            elif [ "${tiempo[0]}" -eq "08" ];then
+                                tiempo[0]=8
+                            elif [ "${tiempo[0]}" -eq "09" ];then
+                                tiempo[0]=9
+                            fi
+                            if [ "${tiempo[1]}" -eq "00" ];then
+                                tiempo[1]=0
+                            elif [ "${tiempo[1]}" -eq "01" ];then
+                                tiempo[1]=1
+                            elif [ "${tiempo[1]}" -eq "02" ];then
+                                tiempo[1]=2
+                            elif [ "${tiempo[1]}" -eq "03" ];then
+                                tiempo[1]=3
+                            elif [ "${tiempo[1]}" -eq "04" ];then
+                                tiempo[1]=4
+                            elif [ "${tiempo[1]}" -eq "05" ];then
+                                tiempo[1]=5
+                            elif [ "${tiempo[1]}" -eq "06" ];then
+                                tiempo[1]=6
+                            elif [ "${tiempo[1]}" -eq "07" ];then
+                                tiempo[1]=7
+                            elif [ "${tiempo[1]}" -eq "08" ];then
+                                tiempo[1]=8
+                            elif [ "${tiempo[1]}" -eq "09" ];then
+                                tiempo[1]=9
+                            fi
+                            if [ "${tiempo[2]}" -eq "00" ];then
+                                tiempo[2]=0
+                            elif [ "${tiempo[2]}" -eq "01" ];then
+                                tiempo[2]=1
+                            elif [ "${tiempo[2]}" -eq "02" ];then
+                                tiempo[2]=2
+                            elif [ "${tiempo[2]}" -eq "03" ];then
+                                tiempo[2]=3
+                            elif [ "${tiempo[2]}" -eq "04" ];then
+                                tiempo[2]=4
+                            elif [ "${tiempo[2]}" -eq "05" ];then
+                                tiempo[2]=5
+                            elif [ "${tiempo[2]}" -eq "06" ];then
+                                tiempo[2]=6
+                            elif [ "${tiempo[2]}" -eq "07" ];then
+                                tiempo[2]=7
+                            elif [ "${tiempo[2]}" -eq "08" ];then
+                                tiempo[2]=8
+                            elif [ "${tiempo[2]}" -eq "09" ];then
+                                tiempo[2]=9
+                            fi
                             hour=$((${tiempo[0]}*3600))
                             minute=$((${tiempo[1]}*60))
                             second=${tiempo[2]}
