@@ -353,6 +353,7 @@ do
                 #sleep 2
                 empieza=$inicio
                 termina=$final
+                encontrado=0
                 while [ $empieza -lt $termina ]
                 do
                     if [ "${array[$empieza]}" != "0" ];then
@@ -367,6 +368,7 @@ do
                             #echo "Son iguales"
                             #sleep 1
                             array[$empieza]=0
+                            encontrado=1
                             empieza=$termina
                             nuevoDia=${nuevoArray[0]}
                             nuevaHora=${nuevoArray[1]}
@@ -498,6 +500,53 @@ do
                         let "empieza++"
                     fi
                 done
+                if [ $encontrado -eq 0 ]; then
+                    hour=$((23*3600))
+                    minute=$((59*60))
+                    second=59
+                    duracion=$(($hour+$minute+$second))
+                    DuracionXDia[$dia]=$((${DuracionXDia[$dia]}+$duracion))
+                    LlamadasPorDia[$dia]=$((${LlamadasPorDia[$dia]}+1))
+                    LlamadasPorSemana[$usuario]=$((${LlamadasPorSemana[$usuario]}+1))
+                    duracionParcial=$(($duracionParcial+$duracion))
+                    LlamadasHechasPorUsuario[$usuario]+="$duracionParcial,"
+                    if [ $diaActual -eq 1 ];then
+                        LlamadasUsuarioPorDia1[$usuario]=$((${LlamadasUsuarioPorDia1[$usuario]}+1))
+                        DuracionUsuarioPorDia1[$usuario]=$((${DuracionUsuarioPorDia1[$usuario]}+$duracion))
+                        DuracionLlamadasDia1[$cantidadLlamadasDia1]=$((${DuracionLlamadasDia1[$cantidadLlamadasDia1]}+$duracion))
+                        let "cantidadLlamadasDia1++"
+                    elif [ $diaActual -eq 2 ];then
+                        LlamadasUsuarioPorDia2[$usuario]=$((${LlamadasUsuarioPorDia2[$usuario]}+1))
+                        DuracionUsuarioPorDia2[$usuario]=$((${DuracionUsuarioPorDia2[$usuario]}+$duracion))
+                        DuracionLlamadasDia2[$cantidadLlamadasDia2]=$((${DuracionLlamadasDia2[$cantidadLlamadasDia2]}+$duracion))
+                        let "cantidadLlamadasDia2++"        
+                    elif [ $diaActual -eq 3 ];then
+                        LlamadasUsuarioPorDia3[$usuario]=$((${LlamadasUsuarioPorDia3[$usuario]}+1))
+                        DuracionUsuarioPorDia3[$usuario]=$((${DuracionUsuarioPorDia3[$usuario]}+$duracion))
+                        DuracionLlamadasDia3[$cantidadLlamadasDia3]=$((${DuracionLlamadasDia3[$cantidadLlamadasDia3]}+$duracion))
+                        let "cantidadLlamadasDia3++"
+                    elif [ $diaActual -eq 4 ];then
+                        LlamadasUsuarioPorDia4[$usuario]=$((${LlamadasUsuarioPorDia4[$usuario]}+1))
+                        DuracionUsuarioPorDia4[$usuario]=$((${DuracionUsuarioPorDia4[$usuario]}+$duracion))
+                        DuracionLlamadasDia4[$cantidadLlamadasDia4]=$((${DuracionLlamadasDia4[$cantidadLlamadasDia4]}+$duracion))
+                        let "cantidadLlamadasDia4++"
+                    elif [ $diaActual -eq 5 ];then
+                        LlamadasUsuarioPorDia5[$usuario]=$((${LlamadasUsuarioPorDia5[$usuario]}+1))
+                        DuracionUsuarioPorDia5[$usuario]=$((${DuracionUsuarioPorDia5[$usuario]}+$duracion))
+                        DuracionLlamadasDia5[$cantidadLlamadasDia5]=$((${DuracionLlamadasDia5[$cantidadLlamadasDia5]}+$duracion))
+                        let "cantidadLlamadasDia5++"
+                    elif [ $diaActual -eq 6 ];then
+                        LlamadasUsuarioPorDia6[$usuario]=$((${LlamadasUsuarioPorDia6[$usuario]}+1))
+                        DuracionUsuarioPorDia6[$usuario]=$((${DuracionUsuarioPorDia6[$usuario]}+$duracion))
+                        DuracionLlamadasDia6[$cantidadLlamadasDia6]=$((${DuracionLlamadasDia6[$cantidadLlamadasDia6]}+$duracion))
+                        let "cantidadLlamadasDia6++"
+                    else
+                        LlamadasUsuarioPorDia7[$usuario]=$((${LlamadasUsuarioPorDia7[$usuario]}+1))
+                        DuracionUsuarioPorDia7[$usuario]=$((${DuracionUsuarioPorDia7[$usuario]}+$duracion))
+                        DuracionLlamadasDia7[$cantidadLlamadasDia7]=$((${DuracionLlamadasDia7[$cantidadLlamadasDia7]}+$duracion))
+                        let "cantidadLlamadasDia7++"
+                    fi    
+                fi
 
                 #echo "Reviso que haya terminado de procesar"
                 empieza=$inicio
